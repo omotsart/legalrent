@@ -340,7 +340,7 @@ evaluation or partnership discussions. Get in touch: [ovm26rus@yandex.ru](mailto
 
 ## 👤 Author
 
-Built at the intersection of two practices: **15 years of legal work on rental relationships + LLM engineering**. The review playbook, edit categories and evaluation datasets come from real practice rather than generation — that is what gives the system its value.
+Built at the intersection of two practices: **15 years of legal practice + LLM engineering**. The review playbook, edit categories and evaluation datasets come from real practice rather than generation — that is what gives the system its value.
 
 © 2026 · All rights reserved · 🇷🇺 [Русская версия](README.md)
 

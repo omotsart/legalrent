@@ -2,7 +2,7 @@
 
 # ⚖️ LegalRent Copilot
 
-**An AI platform for the legal side of rental management: chat across contracts and payments, redline review with citations to the Russian Civil Code, utility bills generated from Telegram messages, and contract filling from a passport photo.**
+**An AI platform for the legal side of rental management: chat across contracts and payments, redline review with citations to the Russian Civil Code, utility bill calculation, and contract filling from a passport photo.**
 
 *Deterministic code makes the judgments, following explicit rules. The LLM extracts facts and phrases text. Every answer can be verified in 15 seconds.*
 
@@ -38,9 +38,9 @@ Rental management is the same repeating loop of manual work. This platform close
 | Landlord's job | The usual way | With LegalRent Copilot |
 |---|---|---|
 | "What's the late fee in the Petrosyan lease?" | Find the file, scroll 40 pages | Ask in chat → answer in seconds **with the source excerpt** |
-| "Who hasn't paid for May?" | Reconcile Telegram, Excel and memory | One question → answer from the payment ledger |
+| "Who hasn't paid for May?" | Reconcile messages, spreadsheets and memory | One question → answer from the payment ledger |
 | Counterparty sends redlines | 30–40 minutes of review, easy to miss a swap | 🟢🟡🟠🔴 verdict per edit **with a Civil Code citation** |
-| Utility bills from meter readings | Read → calculate → fill template → record | Telegram message → ready .docx + ledger entry |
+| Utility bills from meter readings | Calculate by hand or in a spreadsheet → retype into Word → hope it matches | Three numbers per tenant → every bill for the month in one .docx |
 | New tenant agreement | Retyping passport data, typos in tax IDs | Passport photo → filled contract, **registry numbers checksum-verified** |
 
 > **How this differs from "a chatbot over documents."** You don't have to trust the answer — you can check it. Every answer carries its routing decision, the rule that fired, the retrieved fragments with relevance scores, and the version of the rules applied. For legal work that beats any promise that "the model doesn't make things up."
@@ -61,7 +61,7 @@ Rental management is the same repeating loop of manual work. This platform close
 |---|---|---|
 | 💬 **Chat** | Questions about contracts and payments | A rule-based router picks the source: tables, documents, or both |
 | ⚖️ **Contract Review** | Checking counterparty redlines | The verdict comes from **code following a playbook**, not from a model |
-| 🧾 **Utility Bills** | Bill and ledger entry from a Telegram message | **Code recomputes the arithmetic**; the LLM only reads |
+| 🧾 **Utility Bills** | Calculating and issuing utility charges | Money is computed by **code alone** — no LLM involved |
 | 📄 **Contract Filling** | Contract from a details card and passport photo | Registry numbers validated by checksum |
 | 🗄️ **Knowledge Base** | Growing the corpus | A human confirms metadata **before** indexing |
 | 📈 **Metrics** | Evidence of quality | Evaluation on real data, index health, routing distribution |
@@ -83,7 +83,7 @@ Rental management is the same repeating loop of manual work. This platform close
 <!-- ▶ GIF #3 — chat. Sequence: payments question (SQL branch) → contract question
      (RAG branch with sources expanded) → follow-up "and his?" showing the
      context badge. Must capture the reasoning feed. Width 720px. -->
-<!-- <img src="docs/img/feature-chat.gif" alt="Chat: routing, sources, conversational memory" width="720"> -->
+<img src="docs/img/feature-chat.gif" alt="Chat: routing, sources, conversational memory" width="720">
 
 ---
 
@@ -107,15 +107,32 @@ edited file → alignment (tracked changes) → edit classification
 <!-- ▶ GIF #4 — redline. Upload an edited contract → verdicts appear with colour
      markers → expand one 🔴 showing the counterargument and Art. 616 citation.
      The strongest selling shot after the main demo. -->
-<!-- <img src="docs/img/feature-redline.gif" alt="Contract review: verdicts with statutory citations" width="720"> -->
+<img src="docs/img/feature-redline.gif" alt="Contract review: verdicts with statutory citations" width="720">
 
 ---
 
 ### 🧾 Utility Bills — the most frequent chore
 
-**Why.** A monthly loop for every tenant: readings → calculation → bill → ledger.
+**Why.** The same loop repeats every month for every tenant: meter readings → calculation → bill. This module removes the manual arithmetic and the drift between "what I worked out in a spreadsheet" and "what went into the Word file."
 
-**How.** Telegram message text (no OCR — inputs are textual) → the LLM extracts readings and rates → **code recomputes and verifies the arithmetic** (`610 × 13.8 = 8,418`; the model reads, it doesn't calculate) → render .docx from your real template → write to the payment ledger. From that moment the payment is visible to chat.
+**How.** Three numbers are entered per tenant: electricity (kWh), water (m³) and the heating charge as a finished figure. Above them sit the month, year and tariffs (₽/kWh, ₽/m³); the fixed part — payer, unit, floor area, standing shared costs — is stored separately.
+
+All arithmetic runs through deterministic code in a single place:
+
+```
+electricity = round(kWh × tariff)      610 × 13.8 = 8,418 ₽
+water       = round(m³ × tariff)         3 × 62   =   186 ₽
+heating     = carried over as given                  1,200 ₽
+shared      = fixed component                          715 ₽
+                                       ─────────────────────
+                                       Total       10,519 ₽
+```
+
+The on-screen preview and the document generator call the same calculation function, so the figures match by construction rather than by coincidence. The output is a single .docx containing every bill for the month.
+
+<img src="docs/img/feature-receipts.gif" alt="Utility bills: meter entry and calculation" width="720">
+
+> **No LLM is involved at any step of this module.** Computing money is entrusted to code alone: the result is reproducible, verifiable and independent of model temperature.
 
 ---
 
@@ -124,6 +141,8 @@ edited file → alignment (tracked changes) → edit classification
 **Why.** Passport data and company registry numbers are the main source of typos in contracts.
 
 **How.** A details card (.docx) plus a passport photo → one vision-model call → contract fields. Then deterministic protection: **tax ID, registration number and bank code are checksum-verified** — a plausible but invalid number won't pass. The finished contract lands in the indexer folder and **returns to the knowledge base**: you can query it in chat immediately.
+
+<img src="docs/img/feature-fill.gif" alt="Contract filling from a passport photo" width="720">
 
 > **On the vision model — stated plainly.** The target architecture is a local **Qwen3-VL**, so passport images never leave the machine. Model selection is in progress: the build tested so far doesn't clear the accuracy bar (the test is marked `xfail`). Until that's resolved, the recognition path runs on `claude-sonnet-4-6` — **on test samples only, never on real passports**. Details in [Data and regulatory compliance](#-data-and-regulatory-compliance).
 
@@ -294,7 +313,8 @@ legalrent/
 | Conversational memory | ✅ working |
 | Registry number validators (checksums) | ✅ working |
 | Contract review: 9-category playbook, verdict engine | ✅ working |
-| Utility bills: extraction → .docx → ledger | 🔨 in progress |
+| Utility bills: calculation → preview → .docx | ✅ working |
+| Utility bills: writing to the payment ledger | 🔨 in progress |
 | Contract filling: local VLM selection | 🔨 in progress |
 | UI: chat, knowledge base, metrics | 🔨 in progress |
 | Fully offline generation mode | 🔜 |

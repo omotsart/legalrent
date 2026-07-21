@@ -327,8 +327,6 @@ Development follows the [roadmap](ARCHITECTURE.en.md#roadmap); results of the in
 
 ---
 
----
-
 ## 📦 About code access
 
 This is the project's public showcase: documentation, architectural decisions
@@ -337,7 +335,7 @@ published — they are built on real lease agreements and payment records,
 handling of which is regulated under Russian personal data law.
 
 Code can be made available for review on request — for interviews, technical
-evaluation or partnership discussions. Get in touch: [ovm26rus@yandex.ru]
+evaluation or partnership discussions. Get in touch: [ovm26rus@yandex.ru](mailto:ovm26rus@yandex.ru)
 
 
 ## 👤 Author

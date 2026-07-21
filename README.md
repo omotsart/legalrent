@@ -2,9 +2,9 @@
 
 # ⚖️ LegalRent Copilot
 
-**AI-платформа для юридического управления арендой на собственном гибридном RAG: чат по договорам и платежам, оценка правок контрагента со ссылкой на ГК РФ, расчёт коммунальных квитанций, заполнение договора по фото паспорта**
+**AI platform for legal rental management on its own hybrid RAG: contract and payment chat, counterparty amendment evaluation with reference to the Russian Civil Code, utility bill calculation, contract completion using a passport photo**
 
-*Гибридный поиск по корпусу договоров — лексический и векторный, со слиянием ранжирований. Суждения выносит детерминированный код по явным правилам; LLM извлекает факты и формулирует текст. Каждый ответ можно проверить за 15 секунд*
+*Hybrid contract corpus search – lexical and vector, with ranking merging. Deterministic code makes judgments based on explicit rules; LLM extracts facts and formulates text. Any question can be verified in 15 seconds*
 
 ![Python](https://img.shields.io/badge/Python-3.11+-3776AB?logo=python&logoColor=white)
 ![Streamlit](https://img.shields.io/badge/UI-Streamlit-FF4B4B?logo=streamlit&logoColor=white)
@@ -54,7 +54,7 @@
 
 <!-- ▶ GIF #2 — обзор интерфейса. Медленный проход по боковой навигации
      с задержкой ~1.5 сек на каждой вкладке. Ширина 640px. -->
-<img src="docs/img/6parts.jpg" alt="Обзор интерфейса: разделы Работа и Система" width="300" align="right"> 
+<img src="docs/img/6parts.jpg" alt="Обзор интерфейса: разделы Работа и Система" width="300" align="center"> 
 
 </div>
 
@@ -326,6 +326,20 @@ legalrent/
 **Осознанно не используется:** OCR-стек (входы текстовые, паспорт — один вызов VLM) · LangGraph и CrewAI (диспетчеризация решается ~50 строками Python) · микросервисы · CSS-хаки поверх Streamlit. Проверочный вопрос к каждому инструменту: *«какую конкретную проблему он решает и решается ли она 50 строками Python?»* — обоснования в [ARCHITECTURE.md](ARCHITECTURE.md#что-осознанно-не-используется).
 
 ---
+
+---
+
+## 📦 О доступе к коду
+
+Это публичная витрина проекта: документация, архитектурные решения и метрики.
+Исходный код, полный playbook и датасеты в открытый доступ не выкладываются —
+они построены на реальных договорах и платёжных данных, работа с которыми
+регулируется 152-ФЗ.
+
+Код может быть предоставлен для ознакомления по запросу — в рамках
+технической оценки или обсуждения сотрудничества.
+Напишите: [ovm26rus@yandex.ru]
+
 
 ## 👤 Автор
 

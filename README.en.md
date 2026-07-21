@@ -53,7 +53,7 @@ Rental management is the same repeating loop of manual work. This platform close
 
 <!-- ▶ GIF #2 — interface tour. Slow pass over the sidebar,
      ~1.5s pause on each tab. Width 640px. -->
-<!-- <img src="docs/img/tour-tabs.gif" alt="Interface tour: Work and System sections" width="640"> -->
+<img src="docs/img/6parts.jpg" alt="Обзор интерфейса: разделы Работа и Система" width="300" align="center"> 
 
 </div>
 
@@ -65,6 +65,8 @@ Rental management is the same repeating loop of manual work. This platform close
 | 📄 **Contract Filling** | Contract from a details card and passport photo | Registry numbers validated by checksum |
 | 🗄️ **Knowledge Base** | Growing the corpus | A human confirms metadata **before** indexing |
 | 📈 **Metrics** | Evidence of quality | Evaluation on real data, index health, routing distribution |
+
+> **All of this runs on top of a single engine: RAG and hybrid search across a wide range of documents. The lexical branch finds exact matches—last name, article number, contract number; the vector branch understands rephrasing, when you ask for "late payment penalty" and the document says "late rent penalty." The results are combined into a single ranking. Each response contains the solution path, the rule that triggered, the fragments found with relevance, and the version of the evaluation rules. For legal work, this is more reliable than any promise that the "model is infallible."**
 
 ---
 
@@ -168,7 +170,7 @@ Per-module evaluation results (real examples kept strictly separate from synthet
 
 ---
 
-## 🧠 How it works inside
+## 🧠 How the Hybrid RAG Works
 
 ```mermaid
 flowchart TB
@@ -324,6 +326,19 @@ Development follows the [roadmap](ARCHITECTURE.en.md#roadmap); results of the in
 **Deliberately not used:** OCR stacks (inputs are textual; the passport is a single vision call) · LangGraph and CrewAI (dispatch is ~50 lines of Python) · microservices · CSS hacks over Streamlit. The test applied to every tool: *"what specific problem does it solve, and can I solve that in 50 lines of Python?"* — rationale in [ARCHITECTURE.en.md](ARCHITECTURE.en.md#what-is-deliberately-not-used).
 
 ---
+
+---
+
+## 📦 About code access
+
+This is the project's public showcase: documentation, architectural decisions
+and metrics. The source code, the full playbook and the datasets are not
+published — they are built on real lease agreements and payment records,
+handling of which is regulated under Russian personal data law.
+
+Code can be made available for review on request — for interviews, technical
+evaluation or partnership discussions. Get in touch: [ovm26rus@yandex.ru]
+
 
 ## 👤 Author
 

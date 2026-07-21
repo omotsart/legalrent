@@ -2,9 +2,9 @@
 
 # ⚖️ LegalRent Copilot
 
-**An AI platform for the legal side of rental management: chat across contracts and payments, redline review with citations to the Russian Civil Code, utility bill calculation, and contract filling from a passport photo.**
+**An AI platform for the legal side of rental management, built on a purpose-built hybrid RAG: chat across contracts and payments, redline review with citations to the Russian Civil Code, utility bill calculation, and contract filling from a passport photo.**
 
-*Deterministic code makes the judgments, following explicit rules. The LLM extracts facts and phrases text. Every answer can be verified in 15 seconds.*
+*Hybrid retrieval across the contract corpus — lexical and vector, with rank fusion. Deterministic code makes the judgments, following explicit rules; the LLM extracts facts and phrases text. Every answer can be verified in 15 seconds.*
 
 ![Python](https://img.shields.io/badge/Python-3.11+-3776AB?logo=python&logoColor=white)
 ![Streamlit](https://img.shields.io/badge/UI-Streamlit-FF4B4B?logo=streamlit&logoColor=white)

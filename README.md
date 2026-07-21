@@ -2,9 +2,9 @@
 
 # ⚖️ LegalRent Copilot
 
-**AI platform for legal rental management on its own hybrid RAG: contract and payment chat, counterparty amendment evaluation with reference to the Russian Civil Code, utility bill calculation, contract completion using a passport photo**
+**AI-платформа для юридического управления арендой на собственном гибридном RAG: чат по договорам и платежам, оценка правок контрагента со ссылкой на ГК РФ, расчёт коммунальных квитанций, заполнение договора по фото паспорта.**
 
-*Hybrid contract corpus search – lexical and vector, with ranking merging. Deterministic code makes judgments based on explicit rules; LLM extracts facts and formulates text. Any question can be verified in 15 seconds*
+*Гибридный поиск по корпусу договоров — лексический и векторный, со слиянием ранжирований. Суждения выносит детерминированный код по явным правилам; LLM извлекает факты и формулирует текст. Каждый ответ можно проверить за 15 секунд.*
 
 ![Python](https://img.shields.io/badge/Python-3.11+-3776AB?logo=python&logoColor=white)
 ![Streamlit](https://img.shields.io/badge/UI-Streamlit-FF4B4B?logo=streamlit&logoColor=white)
